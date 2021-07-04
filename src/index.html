@@ -6,20 +6,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>goit-js-hw-13-image-finder</title>
 
-    <link href="../node_modules/@pnotify/core/dist/PNotify.css" rel="stylesheet" type="text/css" />
-    <link
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+
+    <!-- <link href="../node_modules/@pnotify/core/dist/PNotify.css" rel="stylesheet" type="text/css" /> -->
+    <!-- <link
       href="../node_modules/@pnotify/mobile/dist/PNotifyMobile.css"
       rel="stylesheet"
       type="text/css"
-    />
+    /> -->
 
-    <link
+    <!-- <link
       href="../node_modules/@pnotify/core/dist/BrightTheme.css"
       rel="stylesheet"
       type="text/css"
-    />
+    /> -->
   </head>
   <body>
+    <form class="search-form" id="search-form">
+      <input type="text" name="query" autocomplete="off" placeholder="Search images..." />
+      <button type="submit">seach</button>
+    </form>
+
+    <ul class="gallery">
+      <!-- Список <li> с карточками изображений -->
+    </ul>
+
+    <button type="button" class="btn btn-primary button" data-action="load-more">
+      <span
+        class="spinner-border spinner-border-sm spinner is-hidden"
+        role="status"
+        aria-hidden="true"
+      ></span>
+
+      <span class="label">learn more..</span>
+    </button>
+
     <script src="./index.js"></script>
   </body>
 </html>
