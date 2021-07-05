@@ -58,3 +58,9 @@ const clearGalleryContainer = () => {
 
 refs.searchForm.addEventListener('submit', onSearch);
 loadMoreBtn.refs.button.addEventListener('click', fetchImages);
+
+// const element = document.querySelector('.gallery');
+// element.scrollIntoView({
+//   behavior: 'smooth',
+//   block: 'end',
+// });

@@ -20,8 +20,8 @@
   display: flex;
   justify-content: center;
   padding: 8px;
-  margin-bottom: 5vh;
-  margin-top: 30vh;
+  margin-bottom: 35vh;
+  margin-top: 2vh;
 }
 
 .mb-2 {
@@ -43,7 +43,7 @@
 .gallery {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-  grid-gap: 30px;
+  grid-gap: 20px;
   padding: 0;
   margin: 0;
   list-style: none;
