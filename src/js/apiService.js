@@ -1,13 +1,6 @@
-// https://pixabay.com/api/?image_type=photo&orientation=horizontal&q=что_искать&page=номер_страницы&per_page=12&key=22356210-f5a6fb995cd777b2b01184cc9
-
-// Тебе интересны следующие свойства:
-
-// webformatURL - ссылка на маленькое изображение для списка карточек
-// largeImageURL - ссылка на большое изображение (смотри пункт 'дополнительно')
-// likes - количество лайков
-// views - количество просмотров
-// comments - количество комментариев
-// downloads - количество загрузок
+const API_KEY = '22356210-f5a6fb995cd777b2b01184cc9';
+const BASE_URL = 'https://pixabay.com/api';
+const PER_PAGE = 12;
 
 export default class ImageApiService {
   constructor() {
@@ -16,12 +9,14 @@ export default class ImageApiService {
   }
 
   fetchImages() {
-    const url = `https://pixabay.com/api/?image_type=photo&orientation=horizontal&q=${this.searchQuery}&page=${this.page}&per_page=12&key=22356210-f5a6fb995cd777b2b01184cc9`;
+    const url = `${BASE_URL}/?image_type=photo&orientation=horizontal&q=${this.searchQuery}&page=${this.page}&per_page=${PER_PAGE}&key=${API_KEY}`;
 
-    fetch(url)
+    return fetch(url)
       .then(respons => respons.json())
-      .then(data => {
+      .then(({ hits }) => {
         this.incrementPage();
+
+        return hits;
       });
   }
 
