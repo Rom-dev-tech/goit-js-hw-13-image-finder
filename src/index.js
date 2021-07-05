@@ -3,6 +3,11 @@ import ImageApiService from './js/apiService';
 import imegesTpl from './templates/imageCards.hbs';
 import LoadMoreBtn from './js/load-more-btn';
 
+import { alert, defaultModules } from '../node_modules/@pnotify/core/dist/PNotify.js';
+import * as PNotifyMobile from '../node_modules/@pnotify/mobile/dist/PNotifyMobile.js';
+
+defaultModules.set(PNotifyMobile, {});
+
 const refs = {
   searchForm: document.getElementById('search-form'),
   galleryContainer: document.querySelector('.gallery'),
@@ -17,7 +22,9 @@ const onSearch = evt => {
   imageApiService.query = evt.currentTarget.elements.query.value;
 
   if (imageApiService.searchQuery === '') {
-    return alert('ERROR');
+    return alert({
+      text: 'Empty request. Please enter what you want to find',
+    });
   }
 
   loadMoreBtn.show();
@@ -29,6 +36,11 @@ const onSearch = evt => {
 const fetchImages = () => {
   loadMoreBtn.disable();
   imageApiService.fetchImages().then(images => {
+    if (images.length === 0) {
+      return alert({
+        text: 'ERROR Image was not found. Try again..',
+      });
+    }
     appendImagesMarkup(images);
     loadMoreBtn.enable();
   });
