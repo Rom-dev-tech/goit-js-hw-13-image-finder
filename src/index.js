@@ -22,6 +22,8 @@ const onSearch = evt => {
   imageApiService.query = evt.currentTarget.elements.query.value;
 
   if (imageApiService.searchQuery === '') {
+    clearGalleryContainer();
+    loadMoreBtn.hide();
     return alert({
       text: 'Empty request. Please enter what you want to find',
     });
