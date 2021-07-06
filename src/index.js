@@ -36,25 +36,23 @@ const onSearch = evt => {
   fetchImages();
 };
 
-const fetchImages = () => {
-  loadMoreBtn.disable();
-  imageApiService
-    .fetchImages()
-    .then(images => {
-      if (images.length === 0) {
-        return alert({
-          text: 'ERROR Image was not found. Try again..',
-        });
-      }
-      appendImagesMarkup(images);
-      loadMoreBtn.enable();
-    })
-    .catch(onFatchError)
-    .finally(resetForm);
-  setTimeout(pageScroll, 300);
+const fetchImages = async () => {
+  try {
+    loadMoreBtn.disable();
+    const imagesArray = await imageApiService.fetchImages();
+    if (imagesArray.length === 0) {
+      return alert({
+        text: 'ERROR Image was not found. Try again..',
+      });
+    }
+    appendImagesMarkup(imagesArray);
+    loadMoreBtn.enable();
+    resetForm();
+    setTimeout(pageScroll, 300);
+  } catch (error) {
+    console.log(error);
+  }
 };
-
-const onFatchError = error => console.log(error);
 
 const appendImagesMarkup = images => {
   refs.galleryContainer.insertAdjacentHTML('beforeend', imegesTpl(images));
