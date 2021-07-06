@@ -5,6 +5,7 @@ import LoadMoreBtn from './js/load-more-btn';
 
 import { alert, defaultModules } from '../node_modules/@pnotify/core/dist/PNotify.js';
 import * as PNotifyMobile from '../node_modules/@pnotify/mobile/dist/PNotifyMobile.js';
+import * as basicLightbox from 'basiclightbox';
 
 defaultModules.set(PNotifyMobile, {});
 
@@ -73,5 +74,18 @@ const pageScroll = () => {
 
 const resetForm = () => refs.searchForm.reset();
 
+const onGalleryContainerClick = evt => {
+  const largeImageURL = evt.target.dataset.source;
+  const isGalleryImageEl = evt.target.classList.contains('gallery-img');
+  if (!isGalleryImageEl) {
+    return;
+  }
+  const instance = basicLightbox.create(`
+    <img class="basiclightbox" src="${largeImageURL}">
+`);
+  instance.show();
+};
+
 refs.searchForm.addEventListener('submit', onSearch);
 loadMoreBtn.refs.button.addEventListener('click', fetchImages);
+refs.galleryContainer.addEventListener('click', onGalleryContainerClick);
