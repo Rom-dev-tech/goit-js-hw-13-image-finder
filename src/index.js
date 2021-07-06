@@ -37,17 +37,23 @@ const onSearch = evt => {
 
 const fetchImages = () => {
   loadMoreBtn.disable();
-  imageApiService.fetchImages().then(images => {
-    if (images.length === 0) {
-      return alert({
-        text: 'ERROR Image was not found. Try again..',
-      });
-    }
-    appendImagesMarkup(images);
-    loadMoreBtn.enable();
-  });
-  setTimeout(pageScroll, 500);
+  imageApiService
+    .fetchImages()
+    .then(images => {
+      if (images.length === 0) {
+        return alert({
+          text: 'ERROR Image was not found. Try again..',
+        });
+      }
+      appendImagesMarkup(images);
+      loadMoreBtn.enable();
+    })
+    .catch(onFatchError)
+    .finally(resetForm);
+  setTimeout(pageScroll, 300);
 };
+
+const onFatchError = error => console.log(error);
 
 const appendImagesMarkup = images => {
   refs.galleryContainer.insertAdjacentHTML('beforeend', imegesTpl(images));
@@ -64,6 +70,8 @@ const pageScroll = () => {
     block: 'end',
   });
 };
+
+const resetForm = () => refs.searchForm.reset();
 
 refs.searchForm.addEventListener('submit', onSearch);
 loadMoreBtn.refs.button.addEventListener('click', fetchImages);
