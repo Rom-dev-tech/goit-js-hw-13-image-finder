@@ -34,6 +34,7 @@ const onSearch = evt => {
   imageApiService.resetPage();
   clearGalleryContainer();
   fetchImages();
+  resetForm();
 };
 
 const fetchImages = async () => {
@@ -47,11 +48,14 @@ const fetchImages = async () => {
     }
     appendImagesMarkup(imagesArray);
     loadMoreBtn.enable();
-    resetForm();
-    setTimeout(pageScroll, 300);
   } catch (error) {
     console.log(error);
   }
+};
+
+const onLoadMoreBtn = () => {
+  fetchImages();
+  setTimeout(pageScroll, 500);
 };
 
 const appendImagesMarkup = images => {
@@ -85,5 +89,5 @@ const onGalleryContainerClick = evt => {
 };
 
 refs.searchForm.addEventListener('submit', onSearch);
-loadMoreBtn.refs.button.addEventListener('click', fetchImages);
+loadMoreBtn.refs.button.addEventListener('click', onLoadMoreBtn);
 refs.galleryContainer.addEventListener('click', onGalleryContainerClick);
