@@ -46,6 +46,7 @@ const fetchImages = () => {
     appendImagesMarkup(images);
     loadMoreBtn.enable();
   });
+  setTimeout(pageScroll, 500);
 };
 
 const appendImagesMarkup = images => {
@@ -56,11 +57,13 @@ const clearGalleryContainer = () => {
   refs.galleryContainer.innerHTML = '';
 };
 
+const pageScroll = () => {
+  const element = document.querySelector('.anchor');
+  element.scrollIntoView({
+    behavior: 'smooth',
+    block: 'end',
+  });
+};
+
 refs.searchForm.addEventListener('submit', onSearch);
 loadMoreBtn.refs.button.addEventListener('click', fetchImages);
-
-// const element = document.querySelector('.gallery');
-// element.scrollIntoView({
-//   behavior: 'smooth',
-//   block: 'end',
-// });
