@@ -89,13 +89,13 @@
 
 /* Galarry */
 
-// .gallery-img:hover {
-//   transform: scale(1.03);
-// }
-
 .gallery-img {
   &:hover {
     transform: scale(1.03);
   }
   transition: transform var(--animation-duration) var(--timing-function);
+}
+
+.button-thumb {
+  display: flex;
 }

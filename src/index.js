@@ -12,6 +12,7 @@ defaultModules.set(PNotifyMobile, {});
 const refs = {
   searchForm: document.getElementById('search-form'),
   galleryContainer: document.querySelector('.gallery'),
+  goUpBtn: document.querySelector('.arrow-up'),
 };
 
 const loadMoreBtn = new LoadMoreBtn({ selector: '[data-action="load-more"]', hidden: true });
@@ -25,6 +26,7 @@ const onSearch = evt => {
   if (imageApiService.searchQuery === '') {
     clearGalleryContainer();
     loadMoreBtn.hide();
+    addClassGoUpBtn();
     return alert({
       text: 'Empty request. Please enter what you want to find',
     });
@@ -42,12 +44,14 @@ const fetchImages = async () => {
     loadMoreBtn.disable();
     const imagesArray = await imageApiService.fetchImages();
     if (imagesArray.length === 0) {
+      addClassGoUpBtn();
       return alert({
         text: 'ERROR Image was not found. Try again..',
       });
     }
     appendImagesMarkup(imagesArray);
     loadMoreBtn.enable();
+    removeClassGoUpBtn();
   } catch (error) {
     console.log(error);
   }
@@ -73,6 +77,10 @@ const pageScroll = () => {
     block: 'end',
   });
 };
+
+const addClassGoUpBtn = () => refs.goUpBtn.classList.add('is-hidden');
+
+const removeClassGoUpBtn = () => refs.goUpBtn.classList.remove('is-hidden');
 
 const resetForm = () => refs.searchForm.reset();
 
